@@ -2,8 +2,9 @@ var app = angular.module('app', ['ngRoute']);
 
 function lazyLoad(path) {
     return function ($q) {
-        var d = $q.defer();
-        require([path], d.resolve);
+        var d = $q.defer(),
+            sources = angular.isArray(path) ? path : [path];
+        require(sources, d.resolve);
         return d.promise;
     };
 }
@@ -26,7 +27,7 @@ app.config(function ($routeProvider, $provide, $controllerProvider, $compileProv
         .when('/list', {
             templateUrl: './views/list.html',
             resolve: {
-                whatever: lazyLoad('./js/lazy-list.js')
+                whatever: lazyLoad(['./js/lazy-list.js','./js/lazy-directive.js'])
             },
             controller: 'List'
         })

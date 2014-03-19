@@ -16,14 +16,6 @@ list.controller('List', function ($scope, foo, lazyService, $route) {
     };
 });
 
-list.directive('lazyList', function () {
-    return {
-        replace: true,
-        restrict: 'EA',
-        template: '<div>Lazy loaded directive</div>'
-    }
-});
-
 list.factory('lazyService', function () {
     return {
         first: 'First Value',
